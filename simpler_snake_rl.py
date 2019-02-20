@@ -18,7 +18,7 @@ tile_width = 30
 screen_width = field_width * tile_width + tile_width * 2
 if screen_width < 460: screen_width = 460
 screen_height = field_height * tile_width + tile_width * 2 + 30
-screen_title = 'Snake'
+screen_title = 'Simpler Snake RL'
 
 max_score = field_width * field_height - 3
 
