@@ -5,4 +5,4 @@ Use WASD or ARROWS for navigation. Use SPACE to start the game or to pause it.
 
 Tested in Kubuntu 18.04.
 
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](Screenshot_20190221_024116.png?raw=true "Title")
