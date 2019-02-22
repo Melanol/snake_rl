@@ -3,7 +3,7 @@ A clone of the classic Snake game with few modifications intended to ease the us
 
 Use WASD or ARROWS for navigation. Use SPACE to start the game or to pause it.
 
-Tested in Kubuntu 18.04, should work on any OS.
+Tested in Kubuntu 18.04, should work on any OS.  
 Python 3 is required.
 
 Installation: `python3 -m pip install snake-rl-melanol`
