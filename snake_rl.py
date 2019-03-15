@@ -1,6 +1,7 @@
 import random
 import arcade
 
+sdfsdf = open('green(1).png')
 
 # Main parameters of the game:
 field_width = 17  # In tiles. Keep it odd. The default is 17.
