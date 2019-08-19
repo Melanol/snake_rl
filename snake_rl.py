@@ -1,3 +1,4 @@
+import os
 import random
 import arcade
 
@@ -61,7 +62,7 @@ for x in range(1, field_width + 1):
         i += 1
 
 
-class MyGame(arcade.Window):
+class Snake_RL(arcade.Window):
     """ Main application class. """
     def create_tail(self, x, y, angle):
         tail = arcade.Sprite('sprites/tail.png')
@@ -87,6 +88,8 @@ class MyGame(arcade.Window):
     def __init__(self, width, height, title):
         """ Initializer. """
         super().__init__(width, height, title)
+        file_path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(file_path)
         arcade.set_background_color(arcade.color.BLACK_BEAN)
         self.wall_list = arcade.SpriteList()
         self.background_list = arcade.SpriteList()
@@ -322,7 +325,7 @@ class MyGame(arcade.Window):
 
 def main():
     """ Main method. """
-    window = MyGame(screen_width, screen_height, screen_title)
+    window = Snake_RL(screen_width, screen_height, screen_title)
     window.setup()
     arcade.run()
 
