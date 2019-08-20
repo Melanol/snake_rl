@@ -6,7 +6,7 @@ import arcade
 # Main parameters of the game:
 field_width = 17  # In tiles. Keep it odd. The default is 17.
 field_height = 15  # In tiles. Keep it odd. The default is 15.
-pause_allowed = False
+pause_allowed = True
 
 # Fixing main parameters:
 if field_width < 7: field_width = 7
@@ -173,6 +173,11 @@ class Snake_RL(arcade.Window):
         arcade.draw_text("Score: {}".format(self.score), 35, text_y, arcade.color.WHITE)
         arcade.draw_text("High score: {}".format(self.high_score), 165, text_y, arcade.color.WHITE)
         arcade.draw_text("Max score: {}".format(max_score), 325, text_y, arcade.color.WHITE)
+        if self.game_state == 'START':
+            if pause_allowed:
+                arcade.draw_text("Press SPACE to start/pause, use WASD or ARROWS for navigation", 57, 300, arcade.color.BLACK)
+            else:
+                arcade.draw_text("Press SPACE to start, use WASD or ARROWS for navigation", 85, 300, arcade.color.BLACK)
 
     def on_key_press(self, key, modifiers):
         ''' A key was pressed. '''
@@ -308,8 +313,9 @@ class Snake_RL(arcade.Window):
                                       + [(self.head.center_x, self.head.center_y)]
                     self.to_remove.append((self.tail_end_list[0].center_x, self.tail_end_list[0].center_y))
                     self.field_coordinates_for_apple = [xy for xy in field_coordinates if xy not in self.to_remove]
-                    self.apple.center_x, self.apple.center_y = random.choice(self.field_coordinates_for_apple)
-                    self.apples_list.append(self.apple)
+                    if self.score < max_score:
+                        self.apple.center_x, self.apple.center_y = random.choice(self.field_coordinates_for_apple)
+                        self.apples_list.append(self.apple)
 
                     # Changing the color of the tail end after eating an apple:
                     x = self.tail_end_list[0].center_x
@@ -321,6 +327,9 @@ class Snake_RL(arcade.Window):
                     tail_end_frozen.center_y = y
                     tail_end_frozen.angle = angle
                     self.tail_end_list.append(tail_end_frozen)
+
+    def get_snake_rl_path(self):
+        return self.file_path
 
 
 def main():
