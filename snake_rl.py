@@ -175,9 +175,15 @@ class Snake_RL(arcade.Window):
         arcade.draw_text("Max score: {}".format(max_score), 325, text_y, arcade.color.WHITE)
         if self.game_state == 'START':
             if pause_allowed:
-                arcade.draw_text("Press SPACE to start/pause, use WASD or ARROWS for navigation", 57, 300, arcade.color.BLACK)
+                arcade.draw_text("Press SPACE to start/pause,\n"
+                                 "use WASD or ARROWS for navigation", 285, 300,
+                                 arcade.color.BLACK, 15, align="center",
+                                 anchor_x="center", anchor_y="center")
             else:
-                arcade.draw_text("Press SPACE to start, use WASD or ARROWS for navigation", 85, 300, arcade.color.BLACK)
+                arcade.draw_text("Press SPACE to start,\n"
+                                 "use WASD or ARROWS for navigation", 285, 300,
+                                 arcade.color.BLACK, 15, align="center",
+                                 anchor_x="center", anchor_y="center")
 
     def on_key_press(self, key, modifiers):
         ''' A key was pressed. '''
