@@ -82,8 +82,8 @@ class Snake_RL(arcade.Window):
     def death(self):
         if self.score > self.high_score:
             self.high_score = self.score
-        self.setup()
-        self.dead = True
+        self.game_paused = True
+        self.game_state = 'DEAD'
 
     def __init__(self, width, height, title):
         """ Initializer. """
@@ -154,7 +154,6 @@ class Snake_RL(arcade.Window):
         # Misc:
         self.frame_count = 0
         self.actions_q = []
-        self.dead = False
         self.direction = 'RIGHT'
         self.freeze_tail_end = False
 
@@ -164,7 +163,6 @@ class Snake_RL(arcade.Window):
 
         # Draw sprites:
         self.background_list.draw()
-        self.player_list.draw()
         self.tail_list.draw()
         self.tail_end_list.draw()
         self.apples_list.draw()
@@ -184,6 +182,11 @@ class Snake_RL(arcade.Window):
                                  "use WASD or ARROWS for navigation", 285, 300,
                                  arcade.color.BLACK, 15, align="center",
                                  anchor_x="center", anchor_y="center")
+        elif self.game_state == 'DEAD':
+            arcade.draw_text("YOU DIED", 285, 300,
+                             arcade.color.BLACK, 15, align="center",
+                             anchor_x="center", anchor_y="center")
+        self.player_list.draw()
 
     def on_key_press(self, key, modifiers):
         ''' A key was pressed. '''
@@ -192,6 +195,8 @@ class Snake_RL(arcade.Window):
                 self.game_state = 'IN_PROGRESS'
                 self.score = 0
                 self.game_paused = False
+            elif self.game_state == 'DEAD':
+                self.setup()
             else:
                 if pause_allowed:
                     if self.game_paused:
@@ -229,9 +234,8 @@ class Snake_RL(arcade.Window):
         if not self.game_paused:
             self.frame_count += 1
             if self.frame_count % 18 == 0:  # Simulated "slow" frame.
-                if self.dead:
+                if self.game_state == 'DEAD':
                     self.actions_q = []
-                    self.dead = False
 
                 if self.freeze_tail_end:
                     self.freeze_tail_end = False
