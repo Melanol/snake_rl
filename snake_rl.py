@@ -4,9 +4,9 @@ import arcade
 
 
 # Main game parameters:
-field_width = 7  # In tiles. Keep it odd. Min: 7. Default: 17.
-field_height = 3  # In tiles. Keep it odd. Min: 3. Default: 15.
-speed = 2 # Min: 1. Max: 17. Default: 17. Integers only.
+field_width = 17  # In tiles. Keep it odd. Min: 7. Default: 17.
+field_height = 15  # In tiles. Keep it odd. Min: 3. Default: 15.
+speed = 10 # Min: 1. Max: 17. Default: 17. Integers only.
 pause_allowed = True
 
 # Fixing main parameters:
@@ -69,17 +69,13 @@ for x in range(1, field_width + 1):
 class Snake_RL(arcade.Window):
     """ Main application class. """
     def create_tail(self, x, y, angle):
-        tail = arcade.Sprite('sprites/tail.png')
-        tail.center_x = x
-        tail.center_y = y
+        tail = arcade.Sprite('sprites/tail.png', center_x=x, center_y=y)
         tail.angle = angle
         self.tail_list.append(tail)
 
     def tail_end(self, x, y, angle):
         self.tail_end_list[0].kill()
-        tail_end = arcade.Sprite('sprites/tail_end.png')
-        tail_end.center_x = x
-        tail_end.center_y = y
+        tail_end = arcade.Sprite('sprites/tail_end.png', center_x=x, center_y=y)
         tail_end.angle = angle
         self.tail_end_list.append(tail_end)
 
@@ -100,21 +96,15 @@ class Snake_RL(arcade.Window):
 
         # Generate walls:
         for x, y in wall_coordinates:
-            wall = arcade.Sprite('sprites/wall.png')
-            wall.center_x = x
-            wall.center_y = y
+            wall = arcade.Sprite('sprites/wall.png', center_x=x, center_y=y)
             self.wall_list.append(wall)
 
         # Generate background:
         for x, y in field_coordinates_light_green:
-            tile = arcade.Sprite('sprites/light_green.png')
-            tile.center_x = x
-            tile.center_y = y
+            tile = arcade.Sprite('sprites/light_green.png', center_x=x, center_y=y)
             self.background_list.append(tile)
         for x, y in field_coordinates_green:
-            tile = arcade.Sprite('sprites/green.png')
-            tile.center_x = x
-            tile.center_y = y
+            tile = arcade.Sprite('sprites/green.png', center_x=x, center_y=y)
             self.background_list.append(tile)
 
         self.score = 0
@@ -134,25 +124,19 @@ class Snake_RL(arcade.Window):
         y = field_height * tile_width / 2 + tile_width
 
         # Head:
-        self.head = arcade.Sprite('sprites/head.png')
-        self.head.center_x = 165
-        self.head.center_y = y
+        self.head = arcade.Sprite('sprites/head.png', center_x=165, center_y=y)
         self.head.angle = 0
         self.player_list.append(self.head)
 
         # Tail:
-        tail_end = arcade.Sprite('sprites/tail_end.png')
-        tail_end.center_x = 75
-        tail_end.center_y = y
+        tail_end = arcade.Sprite('sprites/tail_end.png', center_x=75, center_y=y)
         tail_end.angle = 0
         self.tail_end_list.append(tail_end)
         self.create_tail(105, y, 0)
         self.create_tail(135, y, 0)
 
         # First apple:
-        self.apple = arcade.Sprite('sprites/apple.png')
-        self.apple.center_x = 225
-        self.apple.center_y = y
+        self.apple = arcade.Sprite('sprites/apple.png', center_x=225, center_y=y)
         self.apples_list.append(self.apple)
 
         # Misc:
@@ -342,9 +326,7 @@ class Snake_RL(arcade.Window):
                     y = self.tail_end_list[0].center_y
                     angle = self.tail_end_list[0].angle
                     self.tail_end_list[0].kill()
-                    tail_end_frozen = arcade.Sprite('sprites/tail_end_frozen.png')
-                    tail_end_frozen.center_x = x
-                    tail_end_frozen.center_y = y
+                    tail_end_frozen = arcade.Sprite('sprites/tail_end_frozen.png', center_x=x, center_y=y)
                     tail_end_frozen.angle = angle
                     self.tail_end_list.append(tail_end_frozen)
 
