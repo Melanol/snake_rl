@@ -198,29 +198,31 @@ class Snake_RL(arcade.Window):
                         self.game_paused = False
                     else:
                         self.game_paused = True
-        if len(self.actions_q) <= 1:
-            try:
-                if self.actions_q[0] in ['UP', 'DOWN']:
-                    if key in [arcade.key.LEFT, arcade.key.A]:
-                        self.actions_q.append('LEFT')
-                    elif key in [arcade.key.RIGHT, arcade.key.D]:
-                        self.actions_q.append('RIGHT')
-                elif self.actions_q[0] in ['LEFT', 'RIGHT']:
-                    if key in [arcade.key.UP, arcade.key.W]:
-                        self.actions_q.append('UP')
-                    elif key in [arcade.key.DOWN, arcade.key.S]:
-                        self.actions_q.append('DOWN')
-            except IndexError:  # No actions found / inertial movement
-                if self.direction in ['UP', 'DOWN']:
-                    if key in [arcade.key.LEFT, arcade.key.A]:
-                        self.actions_q.append('LEFT')
-                    elif key in [arcade.key.RIGHT, arcade.key.D]:
-                        self.actions_q.append('RIGHT')
-                elif self.direction in ['LEFT', 'RIGHT']:
-                    if key in [arcade.key.UP, arcade.key.W]:
-                        self.actions_q.append('UP')
-                    elif key in [arcade.key.DOWN, arcade.key.S]:
-                        self.actions_q.append('DOWN')
+        else:
+            if self.game_state != 'START':
+                if len(self.actions_q) <= 1:
+                    try:
+                        if self.actions_q[0] in ['UP', 'DOWN']:
+                            if key in [arcade.key.LEFT, arcade.key.A]:
+                                self.actions_q.append('LEFT')
+                            elif key in [arcade.key.RIGHT, arcade.key.D]:
+                                self.actions_q.append('RIGHT')
+                        elif self.actions_q[0] in ['LEFT', 'RIGHT']:
+                            if key in [arcade.key.UP, arcade.key.W]:
+                                self.actions_q.append('UP')
+                            elif key in [arcade.key.DOWN, arcade.key.S]:
+                                self.actions_q.append('DOWN')
+                    except IndexError:  # No actions found / inertial movement
+                        if self.direction in ['UP', 'DOWN']:
+                            if key in [arcade.key.LEFT, arcade.key.A]:
+                                self.actions_q.append('LEFT')
+                            elif key in [arcade.key.RIGHT, arcade.key.D]:
+                                self.actions_q.append('RIGHT')
+                        elif self.direction in ['LEFT', 'RIGHT']:
+                            if key in [arcade.key.UP, arcade.key.W]:
+                                self.actions_q.append('UP')
+                            elif key in [arcade.key.DOWN, arcade.key.S]:
+                                self.actions_q.append('DOWN')
 
     def update(self, delta_time):
         ''' Movement and game logic. '''
