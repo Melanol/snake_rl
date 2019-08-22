@@ -3,9 +3,10 @@ import random
 import arcade
 
 
-# Main parameters of the game:
-field_width = 17  # In tiles. Keep it odd. The default is 17.
-field_height = 15  # In tiles. Keep it odd. The default is 15.
+# Main game parameters:
+field_width = 7  # In tiles. Keep it odd. Min: 7. Default: 17.
+field_height = 3  # In tiles. Keep it odd. Min: 3. Default: 15.
+speed = 2 # Min: 1. Max: 17. Default: 17. Integers only.
 pause_allowed = True
 
 # Fixing main parameters:
@@ -13,6 +14,9 @@ if field_width < 7: field_width = 7
 if field_width % 2 == 0: field_width += 1
 if field_height < 3: field_height = 3
 if field_height % 2 == 0: field_height += 1
+if speed < 1: speed = 1
+elif speed > 17: speed = 17
+frames_per_turn = 18 - speed
 
 # Other parameters:
 tile_width = 30
@@ -167,26 +171,30 @@ class Snake_RL(arcade.Window):
         self.tail_end_list.draw()
         self.apples_list.draw()
         self.wall_list.draw()
+        self.player_list.draw()
         text_y = (field_height+2) * tile_width + 8
-        arcade.draw_text("Score: {}".format(self.score), 35, text_y, arcade.color.WHITE)
-        arcade.draw_text("High score: {}".format(self.high_score), 165, text_y, arcade.color.WHITE)
-        arcade.draw_text("Max score: {}".format(max_score), 325, text_y, arcade.color.WHITE)
+        arcade.draw_text("Score: {}".format(self.score), 10, text_y, arcade.color.WHITE)
+        arcade.draw_text("High score: {}".format(self.high_score), 100, text_y, arcade.color.WHITE)
+        arcade.draw_text("Max score: {}".format(max_score), 230, text_y, arcade.color.WHITE)
+        arcade.draw_text("Speed: {}".format(speed), 365, text_y, arcade.color.WHITE)
         if self.game_state == 'START':
             if pause_allowed:
+                arcade.draw_rectangle_filled(screen_width/2, screen_height/2, 340, 50, arcade.color.WHITE_SMOKE)
                 arcade.draw_text("Press SPACE to start/pause,\n"
-                                 "use WASD or ARROWS for navigation", 285, 300,
+                                 "use WASD or ARROWS for navigation", screen_width/2, screen_height/2,
                                  arcade.color.BLACK, 15, align="center",
                                  anchor_x="center", anchor_y="center")
             else:
+                arcade.draw_rectangle_filled(screen_width/2, screen_height/2, 340, 50, arcade.color.WHITE_SMOKE)
                 arcade.draw_text("Press SPACE to start,\n"
-                                 "use WASD or ARROWS for navigation", 285, 300,
+                                 "use WASD or ARROWS for navigation", screen_width/2, screen_height/2,
                                  arcade.color.BLACK, 15, align="center",
                                  anchor_x="center", anchor_y="center")
         elif self.game_state == 'DEAD':
-            arcade.draw_text("YOU DIED", 285, 300,
+            arcade.draw_rectangle_filled(screen_width/2, screen_height/2, 340, 50, arcade.color.WHITE_SMOKE)
+            arcade.draw_text("YOU DIED", screen_width/2, screen_height/2,
                              arcade.color.BLACK, 15, align="center",
                              anchor_x="center", anchor_y="center")
-        self.player_list.draw()
 
     def on_key_press(self, key, modifiers):
         ''' A key was pressed. '''
@@ -233,7 +241,7 @@ class Snake_RL(arcade.Window):
         ''' Movement and game logic. '''
         if not self.game_paused:
             self.frame_count += 1
-            if self.frame_count % 18 == 0:  # Simulated "slow" frame.
+            if self.frame_count % frames_per_turn == 0:  # Simulated "slow" frame.
                 if self.game_state == 'DEAD':
                     self.actions_q = []
 
