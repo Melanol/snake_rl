@@ -6,7 +6,7 @@ import arcade
 # Main game parameters:
 field_width = 17  # In tiles. Keep it odd. Min: 7. Default: 17.
 field_height = 15  # In tiles. Keep it odd. Min: 3. Default: 15.
-speed = 10 # Min: 1. Max: 17. Default: 17. Integers only.
+speed = 1 # Min: 1. Max: 17. Default: 1. Integers only.
 pause_allowed = True
 
 # Fixing main parameters:
