@@ -4,49 +4,49 @@ import arcade
 
 
 # Main game parameters:
-field_width = 17  # In tiles. Keep it odd. Min: 7. Default: 17.
-field_height = 15  # In tiles. Keep it odd. Min: 3. Default: 15.
-speed = 1 # Min: 1. Max: 17. Default: 1. Integers only.
-pause_allowed = True
+FIELD_WIDTH = 17  # In tiles. Keep it odd. Min: 7. Default: 17.
+FIELD_HEIGHT = 15  # In tiles. Keep it odd. Min: 3. Default: 15.
+SPEED = 1  # Min: 1. Max: 17. Default: 1. Integers only.
+PAUSE_ALLOWED = True
 
 # Fixing main parameters:
-if field_width < 7: field_width = 7
-if field_width % 2 == 0: field_width += 1
-if field_height < 3: field_height = 3
-if field_height % 2 == 0: field_height += 1
-if speed < 1: speed = 1
-elif speed > 17: speed = 17
-frames_per_turn = 18 - speed
+if FIELD_WIDTH < 7: FIELD_WIDTH = 7
+if FIELD_WIDTH % 2 == 0: FIELD_WIDTH += 1
+if FIELD_HEIGHT < 3: FIELD_HEIGHT = 3
+if FIELD_HEIGHT % 2 == 0: FIELD_HEIGHT += 1
+if SPEED < 1: SPEED = 1
+elif SPEED > 17: SPEED = 17
+frames_per_turn = 18 - SPEED
 
 # Other parameters:
 tile_width = 30
-screen_width = field_width * tile_width + tile_width * 2
+screen_width = FIELD_WIDTH * tile_width + tile_width * 2
 if screen_width < 460: screen_width = 460
-screen_height = field_height * tile_width + tile_width * 2 + 30
+screen_height = FIELD_HEIGHT * tile_width + tile_width * 2 + 30
 screen_title = 'Snake RL'
 
-max_score = field_width * field_height - 3
+max_score = FIELD_WIDTH * FIELD_HEIGHT - 3
 
 # Generate wall coordinates:
 wall_coordinates = []
 x = tile_width / 2  # Starting at the left bottom corner.
 y = tile_width / 2
-for _ in range(field_height + 2):  # Going up.
+for _ in range(FIELD_HEIGHT + 2):  # Going up.
     wall_coordinates.append((x, y))
     y += tile_width
 x += tile_width
 y -= tile_width
-for _ in range(field_width + 1):  # Going right.
+for _ in range(FIELD_WIDTH + 1):  # Going right.
     wall_coordinates.append((x, y))
     x += tile_width
 x -= tile_width
 y -= tile_width
-for _ in range(field_height + 1):  # Going down.
+for _ in range(FIELD_HEIGHT + 1):  # Going down.
     wall_coordinates.append((x, y))
     y -= tile_width
 x -= tile_width
 y += tile_width
-for _ in range(field_width):  # Going left.
+for _ in range(FIELD_WIDTH):  # Going left.
     wall_coordinates.append((x, y))
     x -= tile_width
 
@@ -56,8 +56,8 @@ field_coordinates = []
 field_coordinates_light_green = []
 field_coordinates_green = []
 i = 0
-for x in range(1, field_width + 1):
-    for y in range(1, field_height + 1):
+for x in range(1, FIELD_WIDTH + 1):
+    for y in range(1, FIELD_HEIGHT + 1):
         field_coordinates.append((n*x + tile_width/2, n*y + tile_width/2))
         if i % 2 == 0:
             field_coordinates_light_green.append((n*x + tile_width/2, n*y + tile_width/2))
@@ -121,7 +121,7 @@ class Snake_RL(arcade.Window):
         self.tail_end_list = arcade.SpriteList()
         self.apples_list = arcade.SpriteList()
 
-        y = field_height * tile_width / 2 + tile_width
+        y = FIELD_HEIGHT * tile_width / 2 + tile_width
 
         # Head:
         self.head = arcade.Sprite('sprites/head.png', center_x=165, center_y=y)
@@ -156,13 +156,13 @@ class Snake_RL(arcade.Window):
         self.apples_list.draw()
         self.wall_list.draw()
         self.player_list.draw()
-        text_y = (field_height+2) * tile_width + 8
+        text_y = (FIELD_HEIGHT + 2) * tile_width + 8
         arcade.draw_text("Score: {}".format(self.score), 10, text_y, arcade.color.WHITE)
         arcade.draw_text("High score: {}".format(self.high_score), 100, text_y, arcade.color.WHITE)
         arcade.draw_text("Max score: {}".format(max_score), 230, text_y, arcade.color.WHITE)
-        arcade.draw_text("Speed: {}".format(speed), 365, text_y, arcade.color.WHITE)
+        arcade.draw_text("Speed: {}".format(SPEED), 365, text_y, arcade.color.WHITE)
         if self.game_state == 'START':
-            if pause_allowed:
+            if PAUSE_ALLOWED:
                 arcade.draw_rectangle_filled(screen_width/2, screen_height/2, 340, 50, arcade.color.WHITE_SMOKE)
                 arcade.draw_text("Press SPACE to start/pause,\n"
                                  "use WASD or ARROWS for navigation", screen_width/2, screen_height/2,
@@ -190,7 +190,7 @@ class Snake_RL(arcade.Window):
             elif self.game_state == 'DEAD':
                 self.setup()
             else:
-                if pause_allowed:
+                if PAUSE_ALLOWED:
                     if self.game_paused:
                         self.game_paused = False
                     else:
