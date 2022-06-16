@@ -6,7 +6,7 @@ A clone of the classic Snake game with few modifications intended to ease the us
 Use WASD or ARROWS for navigation. Use SPACE to start the game or to pause it.
 
 Tested in Kubuntu 18.04, should work on any OS.  
-Python 3 is required.
+Python 3 is required. Stable with arcade 2.5.
 
 ![Alt text](ezgif-4-b27a13502d0f.gif?raw=true "Title")
 ![Alt text](ezgif-4-d3951b2325c4.gif?raw=true "Title")
